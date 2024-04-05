@@ -2,18 +2,18 @@ public class Main {
     public static void main(String[] args) {
 
         // Arbol binario
-        // Nodo raiz = new Nodo(8);
-        // Nodo nodo1 = new Nodo(2);
-        // Nodo nodo2 = new Nodo(9);
-        // Nodo nodo3 = new Nodo(7);
-        // Nodo nodo4 = new Nodo(10);
-
-        // Arbol NO binario
         Nodo raiz = new Nodo(8);
         Nodo nodo1 = new Nodo(2);
         Nodo nodo2 = new Nodo(9);
         Nodo nodo3 = new Nodo(7);
-        Nodo nodo4 = new Nodo(1);
+        Nodo nodo4 = new Nodo(10);
+
+        // Arbol NO binario
+        // Nodo raiz = new Nodo(8);
+        // Nodo nodo1 = new Nodo(2);
+        // Nodo nodo2 = new Nodo(9);
+        // Nodo nodo3 = new Nodo(7);
+        // Nodo nodo4 = new Nodo(1);
 
         raiz.setIzq(nodo1);
         raiz.setDer(nodo2);
@@ -27,15 +27,15 @@ public class Main {
         Nodo nodo4b = new Nodo(5);
 
         // // Isomorfo
-        // raizb.setIzq(nodo1b);
-        // raizb.setDer(nodo2b);
-        // nodo2b.setIzq(nodo3b);
-        // nodo2b.setDer(nodo4b);
-
-        // No ismorfo
         raizb.setIzq(nodo1b);
         raizb.setDer(nodo2b);
         nodo2b.setIzq(nodo3b);
+        nodo2b.setDer(nodo4b);
+
+        // No ismorfo
+        // raizb.setIzq(nodo1b);
+        // raizb.setDer(nodo2b);
+        // nodo2b.setIzq(nodo3b);
 
         // Ejercicio Par
         /*
@@ -49,7 +49,7 @@ public class Main {
         /*
          * Ejercicio 6 de tarea
          */
-        Ejercicio6 eje6 = new Ejercicio6(raiz);
-        eje6.print();
+        // Ejercicio6 eje6 = new Ejercicio6(raiz);
+        // eje6.print();
     }
 }

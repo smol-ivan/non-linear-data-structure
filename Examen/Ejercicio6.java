@@ -29,8 +29,9 @@ public class Ejercicio6 {
     }
 
     public void print() {
-        System.out.println("Es árbol de búsqueda?: " + esBusqueda());
+        System.out.println("Árbol binario");
         print("", raiz, false);
+        System.out.println("Es árbol de búsqueda?: " + esBusqueda());
     }
 
     public void print(String prefix, Nodo n, boolean isLeft) {
