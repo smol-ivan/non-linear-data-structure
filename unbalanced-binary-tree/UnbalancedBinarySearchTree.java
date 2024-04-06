@@ -1,5 +1,7 @@
+import java.util.Stack;
+
 public class UnbalancedBinarySearchTree {
-    private TreeNode root;
+    public TreeNode root;
 
     public UnbalancedBinarySearchTree() {
         this.root = null;
@@ -7,64 +9,90 @@ public class UnbalancedBinarySearchTree {
 
     // Implementar la inserción de un valor en el árbol
     public void insert(int val) {
-        TreeNode nuevo = new TreeNode(val);
-
-        // Implementación necesaria
-        insertaRecursivo(nuevo, root);
-    }
-
-    public void insertaRecursivo(TreeNode nodo_nuevo, TreeNode nodo_actual) {
-
-        // Verificar si el nodo actual es null y la raiz es null entonces
-        // En caso afirmativo poner el nodo nuevo como la raíz
-
-        // Si el nodo actual es distinto de null
-        // Comparar el valor del nodo nuevo con el nodo actual
-        // Hay que ver si es hoja (no tiene hijo izquierdo o derecho según el caso)
-        // Si hay espacio (tiene un hijo izquierdo) se pone el nuevo nodo ahí
-        // Si hay espacio (tiene un hijo derecho) se pone el nuevo nodo ahí
-        // Si es menor hago recursividad en el hijo izquierdo para insertar
-        // Si es mayor hago recursividad en el hijo derecho para insertar
-        if (nodo_actual == null) {
-            nodo_actual = nodo_nuevo;
-        } else {
-            if (nodo_nuevo.getVal() < nodo_actual.getVal()) {
-                if (nodo_actual.getLeft() == null) {
-                    nodo_actual.setLeft(nodo_nuevo);
-                } else {
-                    insertaRecursivo(nodo_nuevo, nodo_actual.getLeft());
-                }
-            } else {
-                if (nodo_actual.getRight() == null) {
-                    nodo_actual.setRight(nodo_nuevo);
-                } else {
-                    insertaRecursivo(nodo_nuevo, nodo_actual.getRight());
-                }
-            }
+        TreeNode nuevo, actual, anterior;
+        nuevo = new TreeNode(val);
+        actual = root;
+        anterior = null;
+        while (actual != null) {
+            if (val == actual.getVal()) 
+                return;
+            anterior = actual;
+            actual = actual.getVal() > val ? actual.getLeft() : actual.getRight();
+        }
+        if (anterior == null) 
+            root = nuevo;
+        else {
+            if (anterior.getVal() > val) 
+                anterior.setLeft(nuevo);
+            else 
+                anterior.setRight(nuevo);
         }
 
     }
 
     // Implementar la eliminación de un valor en el árbol
     public void delete(int val) {
-        deleteR(val, root);
-    }
-
-    public void delete(int val, TreeNode nodo) {
-        if (nodo == null) {
-            return;
+        TreeNode actual, padre;
+        actual = root;
+        padre = null;
+        Stack<TreeNode> pila = new Stack<>();
+        
+        // Buscar el nodo a eliminar
+        while (actual != null && actual.getVal() != val) {
+            padre = actual;
+            pila.push(actual);
+            if (val < actual.getVal()) 
+                actual = actual.getLeft();
+            else 
+                actual = actual.getRight();
         }
-        if (nodo.getVal() == val) {
-            if (nodo.getLeft() == null && nodo.getRight() == null) {
-                nodo == null;
+        // No se encontro el nodo a eliminar 
+        if (actual == null) 
+            return;
+        // Caso 1: El nodo a eliminar es una hoja o tiene un hijo
+        if (actual.getLeft() == null || actual.getRight() == null) {
+            TreeNode hijo = actual.getLeft() == null ? actual.getRight() : actual.getLeft();
+            if (padre == null) {
+                root = hijo;
+            } else if (padre.getLeft() == actual) {
+                padre.setLeft(hijo);
+            } else {
+                padre.setRight(hijo);
             }
-        }) {
+        } else {
+            // Caso 2: El nodo a eliminar tiene dos hijos
+            TreeNode sucesorPadre = actual;
+            TreeNode sucesor = actual.getRight();
+
+            // Encontrar el predecesor (mayor valor en el subárbol izquierdo)
+            while (sucesor.getLeft() != null) {
+                pila.push(sucesor);
+                sucesorPadre = sucesor;
+                sucesor = sucesor.getLeft();
+            }
+
+            // Copiar el valor del predecesor al nodo a eliminar
+            actual.setVal(sucesor.getVal());
+
+            // Eliminar el predecesor
+            if (sucesorPadre.getLeft() == actual) {
+                sucesorPadre.setLeft(sucesor.getRight());
+            } else {
+                sucesorPadre.setRight(sucesor.getRight());
+            }
         }
     }
 
     // Implementar la búsqueda de un valor en el árbol
     public boolean search(int val) {
-        // Implementación necesaria
+        // return searchRecursivo(val, root);
+        TreeNode actual = root;
+        while (actual != null) {
+            if (actual.getVal() == val) 
+                return true;
+            else 
+                actual = actual.getVal() > val ? actual.getLeft() : actual.getRight();
+        }
         return false;
     }
 
@@ -95,4 +123,16 @@ public class UnbalancedBinarySearchTree {
         }
     }
 
+    public void print() {
+        System.out.println("Árbol binario:");
+        print("", root, false);
+    }
+    
+    public void print(String prefix, TreeNode n, boolean isLeft) {
+        if (n != null) {
+            print(prefix + "     ", n.getRight(), false);
+            System.out.println(prefix + ("|-- ") + n.getVal());
+            print(prefix + "     ", n.getLeft(), true);
+        }
+    }
 }
