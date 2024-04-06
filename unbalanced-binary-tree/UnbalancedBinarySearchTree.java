@@ -1,6 +1,12 @@
 import java.util.Stack;
 
 public class UnbalancedBinarySearchTree {
+    /*
+     * author:  Silvia Orduña Alarcón
+     *          Ivan Javier Gordillo Solis
+     *          Bruno Gabriel Oropeza Hernandez
+     * 
+     */
     public TreeNode root;
 
     public UnbalancedBinarySearchTree() {
