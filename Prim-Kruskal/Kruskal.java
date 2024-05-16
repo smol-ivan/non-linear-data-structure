@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 class Kruskal {
@@ -40,6 +43,7 @@ class Kruskal {
         }
 
         printMST(finalResult);
+        generateDOTFile(finalResult);
     }
 
     private int[][] getEdges(int[][] graph) {
@@ -51,7 +55,7 @@ class Kruskal {
                 }
             }
         }
-        
+
         int[][] result = new int[edges][3];
         int index = 0;
         for (int i = 0; i < graph.length; i++) {
@@ -95,14 +99,37 @@ class Kruskal {
         }
     }
 
+    private static int fileCounter = 10; // Contador para nombres de archivo
+
+    // Tu código anterior aquí...
+
+    // Método para generar un archivo DOT para visualizar el grafo
+    private void generateDOTFile(int[][] finalResult) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("graph_" + fileCounter + ".dot"));
+            writer.write("graph G {\n");
+
+            for (int i = 0; i < finalResult.length && finalResult[i][0] != -1; i++) {
+                writer.write(
+                        finalResult[i][0] + " -- " + finalResult[i][1] + " [label=\"" + finalResult[i][2] + "\"];\n");
+            }
+
+            writer.write("}");
+            writer.close();
+            fileCounter++; // Incrementar el contador
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         Kruskal algorithm = new Kruskal();
         int[][] graph = {
-            {0, 2, 0, 6, 0},
-            {2, 0, 3, 8, 5},
-            {0, 3, 0, 0, 7},
-            {6, 8, 0, 0, 9},
-            {0, 5, 7, 9, 0}
+                { 0, 2, 0, 6, 0 },
+                { 2, 0, 3, 8, 5 },
+                { 0, 3, 0, 0, 7 },
+                { 6, 8, 0, 0, 9 },
+                { 0, 5, 7, 9, 0 }
         };
         algorithm.applyKruskal(graph);
     }

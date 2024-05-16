@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author usuario
@@ -7,11 +11,12 @@
 class MinimumSpanningTreeExample {
     // Define the count of vertices available in the graph
     private int countOfVertices;
-
+    private static int fileCounter = 0;
 
     MinimumSpanningTreeExample(int countOfVertices) {
         this.countOfVertices = countOfVertices;
     }
+
     // create findMinKeyVertex() method for finding the vertex v that has minimum
     // key-value and that is not added MST yet
     int findMinKeyVertex(int keys[], Boolean setOfMST[]) {
@@ -89,22 +94,42 @@ class MinimumSpanningTreeExample {
 
         // print the constructed Minimum Spanning Tree
         showMinimumSpanningTree(mstArray, graphArray);
+        generateDOTFile(mstArray, graphArray);
+    }
+
+
+    // Método para generar un archivo DOT para visualizar el grafo
+    void generateDOTFile(int mstArray[], int graphArray[][]) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("graph_" + fileCounter + ".dot"));
+            writer.write("graph G {\n");
+
+            for (int j = 1; j < countOfVertices; j++) {
+                writer.write(mstArray[j] + " -- " + j + " [label=\"" + graphArray[j][mstArray[j]] + "\"];\n");
+            }
+
+            writer.write("}");
+            writer.close();
+            fileCounter++; // Incrementar el contador
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // main() method start
     public static void main(String[] args) {
 
-        int graphArray[][] = new int[][] { 
-            { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
-            { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
-            { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
-            { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
-            { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
-            { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
-            { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
-            { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
-            { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
-            
+        int graphArray[][] = new int[][] {
+                { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+                { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+                { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+                { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+                { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+                { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+                { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+                { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+                { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+
         MinimumSpanningTreeExample mst = new MinimumSpanningTreeExample(graphArray.length);
         // Print the Minimum Spanning Tree solution
         mst.designMST(graphArray);

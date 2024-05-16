@@ -14,17 +14,30 @@ public class PrimYKruskal {
         // Leer matriz de adyacencia
         String path = "DTP/Range_100/ins_050_1.txt";
         int[][] matriz = lector.leerMatrizDeAdyacencia(path);
-        // Impirmir matriz de adyacencia
-        // for (int i = 0; i < matriz.length; i++) {
-        //     for (int j = 0; j < matriz[i].length; j++) {
-        //         System.out.print(matriz[i][j] + " ");
-        //     }
-        //     System.out.println();
-        // }
         // Prueba de Kruskal
         pruebaKruskal(matriz);
         // Prueba de Prim
         pruebaPrim(matriz);
+
+        // Crear instancia de LectorDeGrafos
+        LectorDeGrafos lector1 = new LectorDeGrafos();
+        // Leer matriz de adyacencia
+        String path1 = "DTP/Range_100/ins_050_2.txt";
+        int[][] matriz1 = lector1.leerMatrizDeAdyacencia(path1);
+        // Prueba de Kruskal
+        pruebaKruskal(matriz1);
+        // Prueba de Prim
+        pruebaPrim(matriz1);
+
+        // Crear instancia de LectorDeGrafos
+        LectorDeGrafos lector2 = new LectorDeGrafos();
+        // Leer matriz de adyacencia
+        String path2 = "DTP/Range_100/ins_050_3.txt";
+        int[][] matriz2 = lector2.leerMatrizDeAdyacencia(path2);
+        // Prueba de Kruskal
+        pruebaKruskal(matriz2);
+        // Prueba de Prim
+        pruebaPrim(matriz2);
     }
 
     private static void pruebaKruskal(int[][] matriz) {
