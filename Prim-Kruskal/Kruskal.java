@@ -42,7 +42,7 @@ class Kruskal {
             }
         }
 
-        printMST(finalResult);
+        // printMST(finalResult);
         generateDOTFile(finalResult);
     }
 
@@ -99,7 +99,7 @@ class Kruskal {
         }
     }
 
-    private static int fileCounter = 10; // Contador para nombres de archivo
+    private static int fileCounter = 15; // Contador para nombres de archivo
 
     // Tu código anterior aquí...
 

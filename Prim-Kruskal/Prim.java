@@ -11,7 +11,7 @@ import java.io.IOException;
 class MinimumSpanningTreeExample {
     // Define the count of vertices available in the graph
     private int countOfVertices;
-    private static int fileCounter = 0;
+    private static int fileCounter = 20;
 
     MinimumSpanningTreeExample(int countOfVertices) {
         this.countOfVertices = countOfVertices;
@@ -93,7 +93,7 @@ class MinimumSpanningTreeExample {
         }
 
         // print the constructed Minimum Spanning Tree
-        showMinimumSpanningTree(mstArray, graphArray);
+        // showMinimumSpanningTree(mstArray, graphArray);
         generateDOTFile(mstArray, graphArray);
     }
 
